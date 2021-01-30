@@ -1,3 +1,11 @@
 main {
     min-height: 80vh; /*Attach the copyright text to the bottom of website with adjusting mains size like this*/
 }
+
+.rating span {
+    margin: 0.1rem; /*this separates stars from each others*/
+}
+
+h3 {
+    padding: 1rem 0; /*give some space to price field from top and bottom*/
+}

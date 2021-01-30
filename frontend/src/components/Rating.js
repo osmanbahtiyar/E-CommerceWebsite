@@ -2,7 +2,7 @@ import React from 'react';
 
 const Rating = (props) => {
     return (
-        <div className='rating'>
+        <span className='rating'>
             <span>
                 <i
                     style={{ color: props.color }}
@@ -76,7 +76,7 @@ const Rating = (props) => {
             <span>
                 {props.numReviews && ' ' + props.numReviews + ' reviews'}
             </span>
-        </div>
+        </span>
     );
 };
 

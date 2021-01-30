@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Row,
     Col,
@@ -9,17 +9,45 @@ import {
     Button,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import products from '../products';
+import axios from 'axios';
 
 const ProductScreen = (props) => {
-    const my_product = products.find((p) => p._id === props.match.params.id);
+    const [myProduct, setProduct] = useState({});
+    /*
+    this is a react hook and we can add state functionality to function components with it
+    myProduct -> state variable
+    setProduct -> function to change this state variable
+    {} in useState is initial value of this state variable
+    */
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const res = await axios.get(
+                    `/api/products/${props.match.params.id}`
+                );
+                setProduct(res.data);
+            } catch {
+                console.log(`Product_id:${props.match.params.id} cannot found`);
+                setProduct({});
+            }
+        };
+        fetchProduct();
+    }, []);
+    /*
+    useEffect functions are triggers when an event occur, these are dependencies in [] the second parameter. if it is empty they triggers only the component did mount
+    useEffect takes an arrow function
+    axios returns a promise to us so we have to handle it either with .then() statements or async await statements
+    we can get url parameters with props.match.param.(parameter)
+    */
+
     return (
         <>
             <Row>
                 <Col md={6}>
                     <Image
-                        src={my_product.image}
-                        alt={my_product.name}
+                        src={myProduct.image}
+                        alt={myProduct.name}
                         fluid
                     ></Image>
                     {/*Normally images extends its container to prevent this we used fluid */}
@@ -27,19 +55,17 @@ const ProductScreen = (props) => {
                 <Col md={3}>
                     <ListGroup variant='flush'>
                         <ListGroupItem>
-                            <h3>{my_product.name}</h3>
+                            <h3>{myProduct.name}</h3>
                         </ListGroupItem>
                         <ListGroupItem>
                             <Rating
-                                value={my_product.rating}
-                                numReviews={my_product.numReviews}
+                                value={myProduct.rating}
+                                numReviews={myProduct.numReviews}
                             />
                         </ListGroupItem>
+                        <ListGroupItem>Price: ${myProduct.price}</ListGroupItem>
                         <ListGroupItem>
-                            Price: ${my_product.price}
-                        </ListGroupItem>
-                        <ListGroupItem>
-                            Description: {my_product.description}
+                            Description: {myProduct.description}
                         </ListGroupItem>
                     </ListGroup>
                 </Col>
@@ -50,7 +76,7 @@ const ProductScreen = (props) => {
                                 <Row>
                                     <Col>Price: </Col>
                                     <Col>
-                                        <strong>${my_product.price}</strong>
+                                        <strong>${myProduct.price}</strong>
                                     </Col>
                                 </Row>
                             </ListGroupItem>
@@ -58,7 +84,7 @@ const ProductScreen = (props) => {
                                 <Row>
                                     <Col>Status:</Col>
                                     <Col>
-                                        {my_product.countInStock > 0
+                                        {myProduct.countInStock > 0
                                             ? 'In Stock'
                                             : 'Out of Stock'}
                                         {/*If stock count of product <= 0 it says out of stock */}
@@ -69,7 +95,7 @@ const ProductScreen = (props) => {
                                 <Button
                                     variant='dark'
                                     block
-                                    disabled={my_product.countInStock === 0}
+                                    disabled={myProduct.countInStock === 0}
                                 >
                                     {/*If stock is 0 add to cart button is disabled, block fits the button to entire block */}
                                     ADD TO CART

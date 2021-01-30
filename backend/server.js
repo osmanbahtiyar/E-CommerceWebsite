@@ -1,5 +1,12 @@
-const express = require('express');
-const products = require('./data/products');
+// const express = require('express');
+import express from 'express';
+//const products = require('./data/products');
+import products from './data/products.js';
+//const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+
+dotenv.config();
+//initialize the dotenv
 
 const app = express();
 /*initialize an express app*/
@@ -24,5 +31,11 @@ app.get('/api/products/:id', (req, res) => {
     /*Express converts this one element to a json file and sends it to frontend */
 });
 
-app.listen(5000, console.log('Server running on port 5000'));
+const PORT = process.env.PORT || 5000;
+/*it takes the port info from env file. if it don't exist, it sets 5000 */
+
+app.listen(
+    PORT,
+    console.log(`Server running on ${process.env.NODE_ENV} port ${PORT}`)
+);
 /*Set server app to listen port 5000 manually*/

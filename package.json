@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN Stack e-commerce app",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/osmanbahtiyar/E-CommerceWebsite#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

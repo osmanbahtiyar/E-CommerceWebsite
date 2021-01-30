@@ -33,12 +33,13 @@ const ProductScreen = (props) => {
             }
         };
         fetchProduct();
-    }, []);
+    }, [props.match.params.id]);
     /*
     useEffect functions are triggers when an event occur, these are dependencies in [] the second parameter. if it is empty they triggers only the component did mount
     useEffect takes an arrow function
     axios returns a promise to us so we have to handle it either with .then() statements or async await statements
     we can get url parameters with props.match.param.(parameter)
+    [props.match.params.id] is the dependency for useEffect when it is changed, useEffect is triggered 
     */
 
     return (

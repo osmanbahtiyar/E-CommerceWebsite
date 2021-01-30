@@ -1,0 +1,23 @@
+{
+  "name": "e-commercewebsite",
+  "version": "1.0.0",
+  "description": "MERN Stack e-commerce app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osmanbahtiyar/E-CommerceWebsite.git"
+  },
+  "author": "Osman Bahtiyar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osmanbahtiyar/E-CommerceWebsite/issues"
+  },
+  "homepage": "https://github.com/osmanbahtiyar/E-CommerceWebsite#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

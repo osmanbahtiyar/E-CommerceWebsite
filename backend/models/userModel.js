@@ -29,9 +29,9 @@ const userSchema = mongoose.Schema(
 we can define a schema on mongoDB and we created this scheme for user info
 */
 
-const User = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema);
 /*
 create a model from this scheme and export it
 */
 
-export default User;
+export default UserModel;

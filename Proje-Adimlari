@@ -1,0 +1,95 @@
+1. mkdir ile boş bir klasör ac
+2. npx create-react-app frontend ile frontend için bir react projesi oluştur
+3. index.html içerisinde uygulamanın logosunu ve ismini değiştirdik (browserda görünen)
+4. App.test.js, logo.svg, setupTest.js, App.css dosyalarına ihtiyacımız olmadığı için sildik
+5. App.js logo.svg eksik olduğu için hata verdi, tüm importları ve içerisindeki şeyleri sildik.
+6. index.css içini de komple sildik
+7. React zaten içerisinde bir .git oluşturuyor ama bu frontend içinde ben genel bir git dosyası istiyorum bunun için rm -rf .git yapıyorum
+8. Zaten frontend içinde olan gitignore dosyasını da ana klasöre taşıyorum
+9. gitignore içine node_modules altına node_modules/ ekliyorum bu server da dahil kurduğum tüm dependencyleri ignore etmesi için
+10. gitignore içine .env ekliyorum bu ileride benim environment variablelarımı içine koyacağım dosya bunlar bana özel olmalı githuba gitmemeli
+11. cd .. ile ana klasöre dönüyorum ve git init yapıyorum daha sonra git add . yapıyorum git status git commit -m 'react setup'
+12. src içine components diye bir klasör açıyoruz tüm react componentslerimizi bunun içine koyacağız, tüm screenler için de screens diye bir klasör açacağız
+13. components içerisine Header.js oluşturduk
+14. components içerisine Footer.js oluşturduk
+15. import header and footer to app.js
+16. bu projede bootstrap olarak bootswatch kullanacağız bunun için bootswatch.com a girdim ve lux temasının min.css dosyasını indirdim. Bu dosyayi src klasörünün içine attım. index.js içerisinde bu dosyayı import ettim
+17. yeni terminal açtım ve frontend klasörünün içine gidip npm i react-bootstrap yaparak bootstrap i install ettim
+18. React-bootstrap den Container import ettik ve h1 tagimizi bunun içine aldık
+19. Aynı şeyi footer ve header için de yaptık.
+20. Copyright bilgisini en alta sabitlemek için sayfanın ana kısmı olan mainin boyutunu 94vh ayarladık
+21. react-bootstrap sitesine gittik ve bir navbar aldık gelip onu header componentinin içine aynen kopyaladık. Komponentimiz içinde şu an kullanılan ancak import edilmemiş bootstrap elemanlarını react-bootstrap den import ettik
+22. bg=dark ve variant=dark yaparak elemanları dark moda geçirdik
+23. yeni bir font theme ekledik css linkini public içindeki index.html içine kopyaladık
+24. fontawasome içinden cart ve signin butonlarına icon ekledik
+25. udemyden indirdiğim images klasörünü public klasörünün içine attım
+26. indirdiğim products.js dosyasını da src kalsörünün içine attım
+27. src içine screens klasörü açtım
+28. screens içine homescreen.js açtım
+29. homescreen i app.js içine ekledik
+30. Rating componentlerini de tamamladık.
+31. Routing için frontend içinde npm i react-router-dom react-router-bootstrap yaptık. böylece routerlarımızı kurduk
+32. react-router-dom içerisinden BrowserRoute ve Route componentlerini import ettik
+32. App.js içerisinde eskiden HomeScreen olarak gösterdiğimiz yeri <Route path='/' component={HomeScreen} exact /> olarak ifade ettik böylece eğer biz / pathinde isek homescreen gösterilecek yoksa gösterilmeyecek
+33. App componentinin tamamını Router içerisine aldık. Bunu yapmak zorundayız yoksa belirttiğimiz Route özelliklerini kullanamayız.
+35. App.js içerisine bir de path='/products/:id' ile ProductScreen componenti verdik. Böylece istediğimiz producta ait sayfaya gideceğiz
+36. Bizim projemiz bir single page web app yani aslında her şey tek bir index.html sayfasının normal bir program gibi programlanmasından oluşuyor. Bizim <a> tag vermememiz lazım çünkü browser bunu harici link olarak algılıyor ve her seferinde sayfayı yeniliyor onun yerine biz react-router-dom un Link özelliğini kullancağız
+37. Projedeki tüm <a href=''> taglerini <Link to=''> ile değiştir.
+38. Bootstrap ile gelen componentlerin içerisindeki href leri kaldırmak için ise react-router-bootstrap den LinkContainer import ediyoruz. Ve href e sahip olan componentlerin href kısımlarını siliyor ve bunları bir LinkContainer Componenti içerisine alıyoruz daha sonra <LinkContainer to=''> şeklinde veriyoruz.
+BACKEND
+40. Ana klasörde backend klasörü oluşturduk
+41. Ana klasörde npm init yaptım çünkü node_modules lerimin ana klasörde olmasını istiyorum frontend veya backend içinde değil 
+42. npm init sırasında ismi default bıraktım, entry point kısmına ana dosyam olan server.js yazdım, author kısmına adımı yazdım
+43. Ana klasörde npm i express yaptım çünkü node_modules burada, backend içerisinde yapma
+44. backend klasörünün içine server.js oluşturdum, data diye bir klasör oluşturdum ve içine frontend içindeki product.js i kopyaladım. Taşımadım kopyaladım çünkü frontendi bozmak istemiyorum
+45. server.js içerisinde express import ettik ve bir app initialize ettik. default olarak 5000 portunu dinledik
+46. Ana klasördeki package.sjon içerisine gittik ve scripts altına "start": "node backend/server.js" yazdık böylece ana klasörde npm start yapınca server çalışacak
+47. bizim frontendden kopyaladığımız products.js es6 modelinde biz onun yerine eski mode kullanıyoruz backendde o yüzden export default products ifadesini module.export = products olarak değiştirdik. Server.js içerisine const products = require('./data/products') yaptık.
+48. frontend içerisine geldik ve npm i axios yaptık
+49. Bu ürünler hala frontend içindeki product.js ten geliyor onu backendden gelen hale çevirmeliyiz.
+50. ilk olarak HomeScreen.js içerisine gir ve product importunu sil. daha sonra react içerisinden useState i import et. Bu hooks ile product arrayimizi state olarak kullanacağız. Bunun için bir const [products, setProducts] = useState([]) yaptık. Burada products bizim stateimiz, setProduct bu state i değiştirmek için kullanacağımız fonksiyon ve useState içerisinde belirttiğimiz şey de products'in initial değeri. Şu an productlarımız boş bir array.
+51. useEffect hook'u da import ettik. useEffect componentimiz çalışmaya başladığı anda çalıştırılan bir fonksiyondur. içerisine bir arrow function alır ve component yüklendiği anda bu arrow function çalışır.
+52. Homescreen i axios ile backendden alır hale getirdim ama 404 hatası verdi. Çünkü axios.get('/api/products') a bakıyor ve benim frontendim localhost:3000 de çalıştığı için bu localhost:3000/api/products ama benim backend serverim localhost:5000 de çalışıyor. Bunu düzeltmek için frontend içindeki package.json dosyasına giriyorum ve name in altına "proxy": "http://127.0.0.1:5000" yazıyorum artık axios bu adrese bakıcak.
+53. frontend içindeki dosyadan alınan her bilgi axios ile backendden alınır hale getirildi
+54. ana klasörde npm i nodemon cuncorrently yaptık.
+55. nodemon live-server in aynısı serverda değişiklik yaptıktan sonra kapatıp baştan açmaya gerek kalmamasını sağlıyor.
+56. concurrently ise birden fazla npm scripti birlite çalıştırmamıza yarıyor
+57. ana klasördeki package.json içine script bölümüne "server": "nodemon backend/server" ve "client": "npm start --prefix frontend" scriptlerini ekledik. npm start normalde bulunduğu pathdeki npm start scriptini çağırıyor bu yüzden frontendinkini çağırmasını belirtmek için --prefix yaptık.
+58. package.json içine "dev": "concurrently \"npm run server\" \"npm run client\"" dedik. böylece npm run dev diyerek server ve clientimizi aynı anda çalıştırabileceğiz. (concurrently npm run serverda sıkıntı çıkardı kullanmadım)
+
+59. İnstall dotevm package
+60. npm i dotenv
+61. dotenv ile kodumun içerisinde .env dosyası içerisindeki environmental variable ları kullanabiliriz. 
+	require('dotenv').config()
+	in .env
+		DB_HOST = localhost
+	const db = require('db')
+	db.connect({host: process.env.DB_HOST})
+62. server.js e dotenv require ettik. Şimdi ana klasörde bir .env dosyası oluşturalım ve environmental değişkenlerimizi onun içine koyalım mesela backend port number PORT = 5000
+63. eger .env file .gitignore içerisinde yoksa ekle biz başta koyduğumuz için var
+70. require tipini import tipine döndürmek
+71. ana klasördeki package.json içine girip "type": "module" yapmak lazım. Artık require yerine import kullanabilirim ama dosyaların sonuna .js koymak zorundayım
+72. require dosyaları importa çevirince product.js içerisinde değiştirdiğim yeri tekrar export default a çevirmeliyim
+73. mongoDB üye oldum
+74. mongoDB compass kurdum
+75. mongoDB kullanıcı adı bahtiyarosman şifre mongodbnin sitesinde kullandığım ile aynı.
+76. mongodb compassdan url ile bağlanırken url encoded olması lazım özel karakterleri değiştir (url encoder kullan)
+77. mongodb üzerinden connect a program dedim ve connection uri ı kopyaladım. URI içine passwordumu yazdım. Database name i yazdım ve .env dosyamın içine koydum.
+78. ana klasör içerisinde npm i mongoose yaptık.
+79. backend klasörü içine bir config klasörü açtık ve bunun içine bir db.js dosyası açtık. Configurasyonu burada yapacağız.
+80. db.js içerisinde database bağlantısı için gerekli olan şeyleri yazdık.
+81. db.js dosyasını server.js içerisinde import ettik
+82. server.js içerisinde connectDB() fonksiyonunu çağırdık
+83. backend altına models altına userModel, productModel, orderModel olarak 3 yeni dosya açtım. Bunlar içerisinde database için kullanacağım schema ve modelleri tanımlayacağım.
+84. Mongoose ile schemalar ve modeller oluşturuldu.
+85. products.js içerisinde _id kısımları silindi. Cünkü mongodb bunları kendisi oluşturacak.
+86. backend/data içerisine user.js oluşturuldu ve içine kullanıcı arrayı oluşturuldu.
+87. kullanıcıların password kısmı xxxx bırakıldı bu passwordler bcryptjs tarafından hashlenerek gelecek.
+88. ana klasör içinde npm i bcryptjs kuruldu.
+89. users.js içine bcryptjs import et ve password: bcrypt.hashSync('123456') yap, her kullanıcının şifresi 123456
+90. seeder.js diye bir dosya yazdık. bu eğer -d parametresi ile çağırılırsa içerisindeki destroyData() fonksiyonunu çağırıyor. Eğer parametre verilmezse importData() fonksiyonunu çağırıyor. bunu kullanmak için ana klasördeki package.json içine "data:import": "node backend/seeder.js" ve "data:destroy": "backend/seeder.js -d" diye iki script yazdık.
+91. 
+
+
+
+

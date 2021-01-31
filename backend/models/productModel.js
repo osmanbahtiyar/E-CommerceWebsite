@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema(
     {
@@ -22,7 +22,7 @@ we've crated a reviewSchema to use in productSchema
 we can use schema in schema
 */
 
-const productSchema = Mongoose.Schema(
+const productSchema = mongoose.Schema(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -79,9 +79,9 @@ const productSchema = Mongoose.Schema(
 we've created a product schema
 */
 
-const Product = mongoose.model('Product', productSchema);
+const ProductModel = mongoose.model('Product', productSchema);
 /**
  * we have created a model from schema and export it
  *
  */
-export default Product;
+export default ProductModel;

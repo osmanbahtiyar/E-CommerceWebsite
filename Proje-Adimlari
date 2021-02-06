@@ -93,7 +93,12 @@ BACKEND
 93. productRoutes.js i server.js içerisine import et ve express.use ile bunları kullan
 94. productRoutes.js içerisinde async functionları handle etmek için express-async-handler diye bir şeyi npm i ile kurduk ve dosyada import ettik
 95. artık product bilgileri database'den geliyor. id 601ea54a599e693810d643af falan gibi şeyler oldu onlar üzerinden arama yapılıyor.
-96. 
+96. postman kurduk. postman environments kısmına http://localhost:5000 i URL olarak tanıttık. Sonra yeni bir collection oluşturduk. Daha sonra içine products diye bir klasör açtık. bu klasörün içine /api/products ve /api/products/:id GET methodlarını yazdık.
+97. yanlış id girdiğimizde bize bir html dönüyor ama biz html değil bir json mesajı istiyoruz ki bunu daha sonra frontendde kullanabilelim.
+98. bunun için middleware ile uğraşmamız gerekiyor. middleware terimi req, res http requestlerinin arasına giren fonksiyonlar için kullanılıyor. bu fonksiyonlar request ve response a erişebiliyor.
+99. middleware içerisinde eğer databasede bir hata oluşmuş ise onu handle etmemiz lazım. Bunun için server.js içerisine app.use() ile bir fonksiyon yazdık (daha sonra ayrı dosyaya koyduk)
+100. eğer middleware fonksiyonumuz 3 parametre alıyor ise (req, res, next) bu normal bir middlewaredir. eğer 4 parametre alıyor ise (err, req, res, next) bu bir errorHandler middlewaredir. Biz bir middleware içerisinde next() çağırırsak bu bir sonraki middleware'e gider ama biz eğer next({}) ile bir şey gonderirsek bu bir sonraki errorHandler middleware'e gider
+
 
 
 

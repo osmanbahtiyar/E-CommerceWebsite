@@ -38,10 +38,17 @@ router.get(
         const my_product = await Product.findById(req.params.id);
 
         if (my_product) {
+            /**
+             * if product found returns product
+             */
             res.json(my_product);
             /*Express converts this one element to a json file and sends it to frontend */
         } else {
-            res.status(404).json({ message: 'Product not found' });
+            /**
+             * if product not found returns error code
+             */
+            res.status(404);
+            throw new Error('Product not found');
         }
     })
 );

@@ -1,29 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productActions';
 
 const HomeScreen = () => {
-    const [products, setProducts] = useState([]);
-    /*
-    This is a react hooks and we can manage states in functional components with this
-    products -> state variable
-    setProducts -> function to change state variable
-    useState([]) -> [] is initial state of state variable, it is an empty array 
-    */
-
+    const dispatch = useDispatch();
+    /**
+     * we initialized a dispatcher
+     */
+    const productList = useSelector((state) => state.productList);
+    /**
+     * we initialize a selector to use a state -> productList from store.js it is a reducer
+     */
+    const { loading, error, products } = productList;
+    /**
+     * destructuring productList object with possible values
+     * we have defined loading, error and products attributes in productReducer.js
+     */
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const res = await axios.get('/api/products');
-                setProducts(res.data);
-            } catch {
-                console.log("Products couldn't fetched in HomeScreen");
-                setProducts([]);
-            }
-        };
-        fetchProducts();
-    }, []);
+        dispatch(listProducts());
+    }, [dispatch]);
     /*
     useEffect is a hook. It takes an arrow function as parameter and when this react component HomeScreen runs, initially this arrow function runs 
     in useEffect we will make some get request and this returns us a promise, so we have to make a .then syntax or make a async wait syntax
@@ -38,19 +35,31 @@ const HomeScreen = () => {
     return (
         <>
             <h1>Latest Products</h1>
-            <Row>
-                {products.map((product) => (
-                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                        {/*Purpose of sm md lg xl is responsive mobile first design */}
-                        {/*This is bootstrap 12 grid system you have to make rows and cols for responsive design they can be also wrapped by a container */}
-                        {/*Every col element should have a unique key element, we've used the id here */}
-                        <Product product={product} />
-                        {/*We've created a product component and give the props as an product object */}
-                    </Col>
-                ))}
-            </Row>
+            {loading ? (
+                <h2>Loading.....</h2>
+            ) : error ? (
+                <h3>Error!!!!!!</h3>
+            ) : (
+                <Row>
+                    {console.log(products)}
+                    {products.map((product) => (
+                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                            {/*Purpose of sm md lg xl is responsive mobile first design */}
+                            {/*This is bootstrap 12 grid system you have to make rows and cols for responsive design they can be also wrapped by a container */}
+                            {/*Every col element should have a unique key element, we've used the id here */}
+                            <Product product={product} />
+                            {/*We've created a product component and give the props as an product object */}
+                        </Col>
+                    ))}
+                </Row>
+            )}
         </>
     );
 };
+/**
+ * if state is loading it prints loading
+ * if there is an error it prints error
+ * if everything is ok it prints page components
+ */
 
 export default HomeScreen;

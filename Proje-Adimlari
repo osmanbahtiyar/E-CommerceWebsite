@@ -88,7 +88,12 @@ BACKEND
 88. ana klasör içinde npm i bcryptjs kuruldu.
 89. users.js içine bcryptjs import et ve password: bcrypt.hashSync('123456') yap, her kullanıcının şifresi 123456
 90. seeder.js diye bir dosya yazdık. bu eğer -d parametresi ile çağırılırsa içerisindeki destroyData() fonksiyonunu çağırıyor. Eğer parametre verilmezse importData() fonksiyonunu çağırıyor. bunu kullanmak için ana klasördeki package.json içine "data:import": "node backend/seeder.js" ve "data:destroy": "backend/seeder.js -d" diye iki script yazdık.
-91. 
+91. backend altına productRoutes.js diye bir dosya oluşturduk. /api/products ve /api/products/:id adreslerine gönderdiğimiz requestleri burada handle edeceğiz artık.
+92. express.Router ile bir router oluşturduk ve server.js içerisindeki 2 get fonksiyonunu bu dosyaya kestik.
+93. productRoutes.js i server.js içerisine import et ve express.use ile bunları kullan
+94. productRoutes.js içerisinde async functionları handle etmek için express-async-handler diye bir şeyi npm i ile kurduk ve dosyada import ettik
+95. artık product bilgileri database'den geliyor. id 601ea54a599e693810d643af falan gibi şeyler oldu onlar üzerinden arama yapılıyor.
+96. 
 
 
 

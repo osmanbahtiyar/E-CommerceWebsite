@@ -2,6 +2,9 @@ import {
     PRODUCT_LIST_FAIL,
     PRODUCT_LIST_REQUEST,
     PRODUCT_LIST_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_DETAILS_REQUEST,
 } from '../constants/productConstants';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -28,6 +31,42 @@ export const productListReducer = (state = { products: [] }, action) => {
          * when it is in SUCCESS state loading is finished and products are products in action.payload
          */
         case PRODUCT_LIST_FAIL:
+            return { loading: false, error: action.payload };
+        /**
+         * when an error occurs action returns an error message as payload
+         */
+        default:
+            return state;
+        /**
+         * by default it returns the state which is normally initial state
+         */
+    }
+};
+
+export const productDetailsReducer = (state = { product: {} }, action) => {
+    /**
+     * the reducer takes two parameters an initial state and an action to dispatch (trigger) this reducer
+     * at initial state products is an empty array
+     * it takes payload info from productAction.js
+     */
+    switch (action.type) {
+        /**
+         * there are three types here
+         * 1- PRODUCT_DETAILS_REQUEST
+         * 2- PRODUCT_DETAILS_SUCCESS
+         * 3- PRODUCT_DETAILS_FAIL
+         */
+        case PRODUCT_DETAILS_REQUEST:
+            return { loading: true, product: {} };
+        /**
+         * when it is fetching it says loading is true and products is an empty array
+         */
+        case PRODUCT_DETAILS_SUCCESS:
+            return { loading: false, product: action.payload };
+        /**
+         * when it is in SUCCESS state loading is finished and products are products in action.payload
+         */
+        case PRODUCT_DETAILS_FAIL:
             return { loading: false, error: action.payload };
         /**
          * when an error occurs action returns an error message as payload

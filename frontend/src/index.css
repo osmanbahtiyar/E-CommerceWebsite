@@ -9,3 +9,13 @@ main {
 h3 {
     padding: 1rem 0; /*give some space to price field from top and bottom*/
 }
+
+h1 {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
+}

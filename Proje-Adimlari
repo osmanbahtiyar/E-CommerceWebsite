@@ -111,6 +111,8 @@ BACKEND
 111. homescreende axios ile yaptığımız işlemi redux ile action içerisinde yaptık bu yüzden home screenden axiosu sildik.
 112. hooks ile yapılan işlemlerin hepsi silindi redux ile yapıldı
 113. carta ekleme için productscreen üzerinde yeni alanlar tanımlandı ve screens klasörü altına cartscreen eklendi ve app.js içerisine de import edildi.
+114. redux ile cart state'i oluşturduk. Her zamanki gibi önce constant tanımladık sonra reducer daha sonra action. En son da actionu kullanacağımız sayfaya implemente ettik.
+115. 
 
 
 

@@ -5,18 +5,31 @@ import {
     productListReducer,
     productDetailsReducer,
 } from './reducers/productReducers';
+import { cartReducer } from './reducers/cartReducer';
 
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    cart: cartReducer,
 });
 /**
  * we pass our reducers to combineReducer method and it creates a reducer
  */
 
-const initialState = {};
+const cartItemsFromStorage = localStorage.getItem('cartItem')
+    ? JSON.parse(localStorage.getItem('cartItems'))
+    : [];
+/**
+ * get saved cart from local storage
+ * it saves as string so we have to parse it to JSON
+ */
+
+const initialState = {
+    cart: { cartItems: cartItemsFromStorage },
+};
 /**
  * this is our initial state when a redux component initialized it would created with this state
+ * we set the cart state from local storage
  */
 
 const middleware = [thunk];

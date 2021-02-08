@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Row,
     Col,
@@ -7,6 +7,7 @@ import {
     ListGroupItem,
     Card,
     Button,
+    Form,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +16,11 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 
 const ProductScreen = (props) => {
+    const [qty, setQty] = useState(0);
+    /**
+     * this is a component level state and we used it for product quantity
+     */
+
     const dispatch = useDispatch();
     /**
      * we use dispatcher to use redux actions
@@ -43,6 +49,10 @@ const ProductScreen = (props) => {
     we can get url parameters with props.match.param.(parameter)
     [props.match.params.id] is the dependency for useEffect when it is changed, useEffect is triggered 
     */
+
+    const addToCartHandler = () => {
+        props.history.push(`/cart/${props.match.params.id}?qty=${qty}`);
+    };
 
     return (
         <>
@@ -101,11 +111,50 @@ const ProductScreen = (props) => {
                                         </Col>
                                     </Row>
                                 </ListGroupItem>
+                                {product.countInStock > 0 && (
+                                    <ListGroupItem>
+                                        <Row>
+                                            <Col style={{ paddingTop: '10px' }}>
+                                                Quantity
+                                            </Col>
+                                            <Col>
+                                                <Form.Control
+                                                    as='select'
+                                                    value={qty}
+                                                    onChange={(event) =>
+                                                        setQty(
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                >
+                                                    {[
+                                                        ...Array(
+                                                            product.countInStock
+                                                        ).keys(),
+                                                    ].map((x) => (
+                                                        <option
+                                                            key={x + 1}
+                                                            value={x + 1}
+                                                        >
+                                                            {x + 1}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Col>
+                                        </Row>
+                                    </ListGroupItem>
+                                )}
+                                {/**
+                                 * if it's stock is grater than 0 create a quantity row and list its quantity
+                                 * for listing quantity create an array with countInStock value and use it with index + 1
+                                 * quantity starts with 1 not 0
+                                 */}
                                 <ListGroupItem>
                                     <Button
                                         variant='dark'
                                         block
                                         disabled={product.countInStock === 0}
+                                        onClick={addToCartHandler}
                                     >
                                         {/*If stock is 0 add to cart button is disabled, block fits the button to entire block */}
                                         ADD TO CART

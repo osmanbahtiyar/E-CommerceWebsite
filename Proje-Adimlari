@@ -98,7 +98,19 @@ BACKEND
 98. bunun için middleware ile uğraşmamız gerekiyor. middleware terimi req, res http requestlerinin arasına giren fonksiyonlar için kullanılıyor. bu fonksiyonlar request ve response a erişebiliyor.
 99. middleware içerisinde eğer databasede bir hata oluşmuş ise onu handle etmemiz lazım. Bunun için server.js içerisine app.use() ile bir fonksiyon yazdık (daha sonra ayrı dosyaya koyduk)
 100. eğer middleware fonksiyonumuz 3 parametre alıyor ise (req, res, next) bu normal bir middlewaredir. eğer 4 parametre alıyor ise (err, req, res, next) bu bir errorHandler middlewaredir. Biz bir middleware içerisinde next() çağırırsak bu bir sonraki middleware'e gider ama biz eğer next({}) ile bir şey gonderirsek bu bir sonraki errorHandler middleware'e gider
-
+101. frontend klasörü içerisinde npm i redux react-redux redux-thunk redux-devtools-extension yaptık.
+102. chrome'a redux devtools eklentisi kurduk
+103. frontend src altına bir stores.js dosyası açtık bu dosya içerisinde bizim redux store'muz olacak. Gerekli şeyleri import ettik. ve fonksiyonları yazdık
+104. src altına bir reducers klasörü açtık bunun altında bizim redux reducerlarımız olacak
+105. src altına constants ve actions klasörleri açtık
+106. store bizim redux componentimiz once onu oluşturduk
+107. reducerlar bizim esas işi yapan elemanlarımız daha sonra bunları oluşturduk
+108. sonra kullanacağımız constantları yazdık
+109. reducer içine constantlar ile işlem yaptık
+110. daha sonra bu reducerların trigglerlayacağı actionları yazdık.
+111. homescreende axios ile yaptığımız işlemi redux ile action içerisinde yaptık bu yüzden home screenden axiosu sildik.
+112. hooks ile yapılan işlemlerin hepsi silindi redux ile yapıldı
+113. carta ekleme için productscreen üzerinde yeni alanlar tanımlandı ve screens klasörü altına cartscreen eklendi ve app.js içerisine de import edildi.
 
 
 
